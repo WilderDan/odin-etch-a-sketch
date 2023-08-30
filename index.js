@@ -12,12 +12,6 @@ function createGrid(rows, cols) {
 
 function createCell() {
   let div = document.createElement("div");
-
-  // Test
-  div.style.backgroundColor = "blue";
-  div.style.width = "50px";
-  div.style.height = "50px";
-  div.style.border = "1px solid black";
-
+  div.classList.add("cell");
   return div;
 }
