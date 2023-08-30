@@ -1,17 +1,24 @@
 createGrid(16, 16);
 
 function createGrid(rows, cols) {
-  let container = document.getElementById("container");
+  let grid = document.getElementById("grid");
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      container.appendChild(createCell());
+      grid.appendChild(createCell(rows, cols));
     }
   }
 }
 
-function createCell() {
-  let div = document.createElement("div");
-  div.classList.add("cell");
-  return div;
+function createCell(rows, cols) {
+  let cell = document.createElement("div");
+  cell.classList.add("cell");
+  cell.style.flexBasis = `${100 / rows}%`;
+  cell.style.height = `${100 / cols}%`;
+
+  let cellContent = document.createElement("div");
+  cellContent.classList.add("cellContent");
+
+  cell.appendChild(cellContent);
+  return cell;
 }
