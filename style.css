@@ -12,7 +12,7 @@ body {
   border: 1px solid black;
 }
 
-.cell:hover {
+.cellHovered {
   background-color: red;
 }
 

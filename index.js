@@ -15,6 +15,11 @@ function createCell(rows, cols) {
   cell.classList.add("cell");
   cell.style.flexBasis = `${100 / rows}%`;
   cell.style.height = `${100 / cols}%`;
+  cell.addEventListener("mouseover", handleMouseOverCell);
 
   return cell;
+}
+
+function handleMouseOverCell(e) {
+  e.target.classList.add("cellHovered");
 }
