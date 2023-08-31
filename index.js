@@ -1,5 +1,6 @@
 const DEFAULT_CELLS_PER_SIDE = 64;
 const MAX_CELLS_PER_SIDE = 100;
+const MESSAGE_DURATION = 3 * 1000;
 
 main();
 
@@ -74,6 +75,7 @@ function getValidatedUserInput() {
 function setMessage(text) {
   let message = document.getElementById("message");
   message.innerText = text;
+  setTimeout(() => (message.innerText = ""), MESSAGE_DURATION);
 }
 
 function removeAllChildNodes(parent) {
