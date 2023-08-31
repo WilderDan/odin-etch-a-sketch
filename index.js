@@ -1,13 +1,13 @@
 main();
 
 function main() {
-  createGrid(16, 16);
+  populateGrid(16, 16);
 
   let adjustGridBtn = document.getElementById("adjustGridBtn");
   adjustGridBtn.addEventListener("click", handleAdjustGrid);
 }
 
-function createGrid(rows, cols) {
+function populateGrid(rows, cols) {
   let grid = document.getElementById("grid");
 
   for (let i = 0; i < rows; i++) {
@@ -36,9 +36,9 @@ function handleAdjustGrid() {
   let grid = document.getElementById("grid");
   removeAllChildNodes(grid);
 
-  // TODO: Input validation. Rename createGrid?
+  // TODO: Input validation
   let num = +prompt("Number of cells per side?");
-  createGrid(num, num);
+  populateGrid(num, num);
 }
 
 function removeAllChildNodes(parent) {
