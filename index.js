@@ -44,6 +44,8 @@ function handleAdjustGrid() {
 
   removeAllChildNodes(grid);
   populateGrid(num, num);
+
+  setMessage(`Grid changed to ${num} x ${num}`);
 }
 
 function getValidatedUserInput() {
