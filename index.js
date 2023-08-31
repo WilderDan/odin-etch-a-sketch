@@ -1,7 +1,9 @@
+const DEFAULT_CELLS_PER_SIDE = 64;
+
 main();
 
 function main() {
-  populateGrid(16, 16);
+  populateGrid(DEFAULT_CELLS_PER_SIDE, DEFAULT_CELLS_PER_SIDE);
 
   let adjustGridBtn = document.getElementById("adjustGridBtn");
   adjustGridBtn.addEventListener("click", handleAdjustGrid);
