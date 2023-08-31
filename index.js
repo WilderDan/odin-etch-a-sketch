@@ -16,9 +16,5 @@ function createCell(rows, cols) {
   cell.style.flexBasis = `${100 / rows}%`;
   cell.style.height = `${100 / cols}%`;
 
-  let cellContent = document.createElement("div");
-  cellContent.classList.add("cellContent");
-
-  cell.appendChild(cellContent);
   return cell;
 }

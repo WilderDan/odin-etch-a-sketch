@@ -8,13 +8,11 @@ body {
   margin: 0;
 }
 
-.cellContent {
+.cell {
   border: 1px solid black;
-  min-height: 100%;
-  min-width: 100%;
 }
 
-.cellContent:hover {
+.cell:hover {
   background-color: red;
 }
 
