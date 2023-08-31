@@ -39,33 +39,41 @@ function handleAdjustGrid() {
   let grid = document.getElementById("grid");
 
   let num = getValidatedUserInput();
-  if (num === 0) return;
+  if (num === null) return;
 
   removeAllChildNodes(grid);
   populateGrid(num, num);
 }
 
 function getValidatedUserInput() {
-  let message = document.getElementById("message");
   const input = +prompt("Number of cells per side?");
 
   if (isNaN(input)) {
-    message.innerText = "Not a number! No change.";
-    return 0;
+    setMessage("Not a number! No change.");
+    return null;
   }
 
   if (input < 0) {
-    message.innerText = "Negative input! No change.";
-    return 0;
+    setMessage("Negative input! No change.");
+    return null;
+  }
+
+  if (input === 0) {
+    setMessage("Zero input! No change.");
+    return null;
   }
 
   if (input > MAX_CELLS_PER_SIDE) {
-    message.innerText = `Input too high! Setting to max of ${MAX_CELLS_PER_SIDE}.`;
+    setMessage(`Input too high! Setting to max of ${MAX_CELLS_PER_SIDE}.`);
     return MAX_CELLS_PER_SIDE;
   }
 
-  message.innerText = "";
   return input;
+}
+
+function setMessage(text) {
+  let message = document.getElementById("message");
+  message.innerText = text;
 }
 
 function removeAllChildNodes(parent) {
