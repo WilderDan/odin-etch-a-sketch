@@ -46,11 +46,25 @@ function handleAdjustGrid() {
 }
 
 function getValidatedUserInput() {
+  let message = document.getElementById("message");
   const input = +prompt("Number of cells per side?");
 
-  if (isNaN(input) || input < 0) return 0;
-  if (input > MAX_CELLS_PER_SIDE) return MAX_CELLS_PER_SIDE;
+  if (isNaN(input)) {
+    message.innerText = "Not a number! No change.";
+    return 0;
+  }
 
+  if (input < 0) {
+    message.innerText = "Negative input! No change.";
+    return 0;
+  }
+
+  if (input > MAX_CELLS_PER_SIDE) {
+    message.innerText = `Input too high! Setting to max of ${MAX_CELLS_PER_SIDE}.`;
+    return MAX_CELLS_PER_SIDE;
+  }
+
+  message.innerText = "";
   return input;
 }
 
