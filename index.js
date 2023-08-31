@@ -33,5 +33,16 @@ function handleMouseOverCell(e) {
 }
 
 function handleAdjustGrid() {
-  console.log("clicked");
+  let grid = document.getElementById("grid");
+  removeAllChildNodes(grid);
+
+  // TODO: Input validation. Rename createGrid?
+  let num = +prompt("Number of cells per side?");
+  createGrid(num, num);
+}
+
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
 }
