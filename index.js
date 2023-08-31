@@ -1,4 +1,5 @@
 const DEFAULT_CELLS_PER_SIDE = 64;
+const MAX_CELLS_PER_SIDE = 100;
 
 main();
 
@@ -36,11 +37,21 @@ function handleMouseOverCell(e) {
 
 function handleAdjustGrid() {
   let grid = document.getElementById("grid");
-  removeAllChildNodes(grid);
 
-  // TODO: Input validation
-  let num = +prompt("Number of cells per side?");
+  let num = getValidatedUserInput();
+  if (num === 0) return;
+
+  removeAllChildNodes(grid);
   populateGrid(num, num);
+}
+
+function getValidatedUserInput() {
+  const input = +prompt("Number of cells per side?");
+
+  if (isNaN(input) || input < 0) return 0;
+  if (input > MAX_CELLS_PER_SIDE) return MAX_CELLS_PER_SIDE;
+
+  return input;
 }
 
 function removeAllChildNodes(parent) {
