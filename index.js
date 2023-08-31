@@ -1,4 +1,11 @@
-createGrid(16, 16);
+main();
+
+function main() {
+  createGrid(16, 16);
+
+  let adjustGridBtn = document.getElementById("adjustGridBtn");
+  adjustGridBtn.addEventListener("click", handleAdjustGrid);
+}
 
 function createGrid(rows, cols) {
   let grid = document.getElementById("grid");
@@ -12,6 +19,7 @@ function createGrid(rows, cols) {
 
 function createCell(rows, cols) {
   let cell = document.createElement("div");
+
   cell.classList.add("cell");
   cell.style.flexBasis = `${100 / rows}%`;
   cell.style.height = `${100 / cols}%`;
@@ -22,4 +30,8 @@ function createCell(rows, cols) {
 
 function handleMouseOverCell(e) {
   e.target.classList.add("cellHovered");
+}
+
+function handleAdjustGrid() {
+  console.log("clicked");
 }
