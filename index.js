@@ -9,7 +9,10 @@ function main() {
   populateGrid(DEFAULT_CELLS_PER_SIDE, DEFAULT_CELLS_PER_SIDE);
 
   let adjustGridBtn = document.getElementById("adjustGridBtn");
+  let toggleModeBtn = document.getElementById("toggleModeBtn");
+
   adjustGridBtn.addEventListener("click", handleAdjustGrid);
+  toggleModeBtn.addEventListener("click", handleToggleMode);
 }
 
 function populateGrid(rows, cols) {
@@ -47,6 +50,18 @@ function handleAdjustGrid() {
   populateGrid(num, num);
 
   setMessage(`Grid changed to ${num} x ${num}`);
+}
+
+function handleToggleMode() {
+  let toggleModeBtn = document.getElementById("toggleModeBtn");
+
+  if (toggleModeBtn.getAttribute("data-mode") === "etch") {
+    toggleModeBtn.setAttribute("data-mode", "click");
+    toggleModeBtn.innerText = "Click Mode";
+  } else {
+    toggleModeBtn.setAttribute("data-mode", "etch");
+    toggleModeBtn.innerText = "Etch Mode";
+  }
 }
 
 function getValidatedUserInput() {

@@ -23,6 +23,11 @@ body {
   margin: 5vh 5vw;
 }
 
+.controlsContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .buttonContainer {
   display: flex;
   justify-content: center;
