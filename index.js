@@ -77,7 +77,7 @@ function getValidatedUserInput() {
 function setMessage(text) {
   let message = document.getElementById("message");
   message.innerText = text;
-  setTimeout(() => (message.innerText = ""), MESSAGE_DURATION);
+  setTimeout(() => (message.innerText = "\u00A0"), MESSAGE_DURATION);
 }
 
 function removeAllChildNodes(parent) {
