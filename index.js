@@ -6,38 +6,45 @@ let timerId = null;
 main();
 
 function main() {
-  populateGrid(DEFAULT_CELLS_PER_SIDE, DEFAULT_CELLS_PER_SIDE);
-
   let adjustGridBtn = document.getElementById("adjustGridBtn");
   let toggleModeBtn = document.getElementById("toggleModeBtn");
 
   adjustGridBtn.addEventListener("click", handleAdjustGrid);
   toggleModeBtn.addEventListener("click", handleToggleMode);
+
+  let cellEvent =
+    toggleModeBtn.getAttribute("data-mode") === "etch" ? "mouseover" : "click";
+
+  populateGrid(DEFAULT_CELLS_PER_SIDE, DEFAULT_CELLS_PER_SIDE, cellEvent);
 }
 
-function populateGrid(rows, cols) {
+function populateGrid(rows, cols, cellEvent) {
   let grid = document.getElementById("grid");
+  removeAllChildNodes(grid);
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      grid.appendChild(createCell(rows, cols));
+      grid.appendChild(createCell(rows, cols, cellEvent));
     }
   }
+
+  grid.setAttribute("data-rows", rows);
+  grid.setAttribute("data-cols", cols);
 }
 
-function createCell(rows, cols) {
+function createCell(rows, cols, event) {
   let cell = document.createElement("div");
 
   cell.classList.add("cell");
   cell.style.flexBasis = `${100 / rows}%`;
   cell.style.height = `${100 / cols}%`;
-  cell.addEventListener("mouseover", handleMouseOverCell);
+  cell.addEventListener(event, handleCellEvent);
 
   return cell;
 }
 
-function handleMouseOverCell(e) {
-  e.target.classList.add("cellHovered");
+function handleCellEvent(e) {
+  e.target.classList.add("cellInteraction");
 }
 
 function handleAdjustGrid() {
@@ -46,22 +53,33 @@ function handleAdjustGrid() {
   let num = getValidatedUserInput();
   if (num === null) return;
 
-  removeAllChildNodes(grid);
-  populateGrid(num, num);
+  let cellEvent =
+    toggleModeBtn.getAttribute("data-mode") === "etch" ? "mouseover" : "click";
 
+  populateGrid(num, num, cellEvent);
   setMessage(`Grid changed to ${num} x ${num}`);
 }
 
 function handleToggleMode() {
   let toggleModeBtn = document.getElementById("toggleModeBtn");
+  let cellEvent;
 
   if (toggleModeBtn.getAttribute("data-mode") === "etch") {
     toggleModeBtn.setAttribute("data-mode", "click");
     toggleModeBtn.innerText = "Click Mode";
+    cellEvent = "click";
   } else {
     toggleModeBtn.setAttribute("data-mode", "etch");
     toggleModeBtn.innerText = "Etch Mode";
+    cellEvent = "mouseover";
   }
+
+  let grid = document.getElementById("grid");
+  populateGrid(
+    +grid.getAttribute("data-rows"),
+    +grid.getAttribute("data-cols"),
+    cellEvent
+  );
 }
 
 function getValidatedUserInput() {
