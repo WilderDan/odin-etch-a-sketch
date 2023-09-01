@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 
 html,
@@ -34,6 +35,7 @@ button {
   border-radius: 10%;
   background-color: blue;
   color: white;
+  box-shadow: 6px 6px 2px 1px rgba(0, 0, 255, 0.2);
 }
 
 .cell {
@@ -53,5 +55,5 @@ button {
 
 #message {
   text-align: center;
-  font-size: large;
+  font-size: medium;
 }
