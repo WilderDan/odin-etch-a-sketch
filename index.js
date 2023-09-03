@@ -13,6 +13,7 @@ function init() {
   let saveBtn = document.getElementById("saveBtn");
   let loadBtn = document.getElementById("loadBtn");
 
+  //<option value="volvo">Volvo</option>
   adjustGridBtn.addEventListener("click", handleAdjustGrid);
   toggleModeBtn.addEventListener("click", handleToggleMode);
   colorPicker.addEventListener("input", handleColorSelect);
@@ -23,6 +24,22 @@ function init() {
     toggleModeBtn.getAttribute("data-mode") === "etch" ? "mouseover" : "click";
 
   populateGrid(DEFAULT_CELLS_PER_SIDE, DEFAULT_CELLS_PER_SIDE, cellEvent);
+  populateSavedItems();
+}
+
+function populateSavedItems() {
+  Object.keys(localStorage).forEach(function (key) {
+    addSavedItem(key);
+  });
+}
+
+function addSavedItem(key) {
+  let savedItems = document.getElementById("savedItems");
+  let option = document.createElement("option");
+  option.text = key;
+  option.value = key;
+
+  savedItems.add(option);
 }
 
 function populateGrid(rows, cols, cellEvent) {
@@ -152,6 +169,7 @@ function saveGrid(key) {
     JSON.stringify({ rows: rows, cols: cols, colors: colors })
   );
 
+  addSavedItem(key);
   setMessage(`Saved "${key}"!`);
 }
 
