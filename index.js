@@ -2,17 +2,18 @@ const DEFAULT_CELLS_PER_SIDE = 32;
 const MAX_CELLS_PER_SIDE = 100;
 const MESSAGE_DURATION = 3 * 1000;
 let timerId = null;
+let cellColor = document.getElementById("colorPicker").value;
 
 init();
 
 function init() {
   let adjustGridBtn = document.getElementById("adjustGridBtn");
   let toggleModeBtn = document.getElementById("toggleModeBtn");
-  let selectColorBtn = document.getElementById("selectColorBtn");
+  let colorPicker = document.getElementById("colorPicker");
 
   adjustGridBtn.addEventListener("click", handleAdjustGrid);
   toggleModeBtn.addEventListener("click", handleToggleMode);
-  selectColorBtn.addEventListener("click", handleColorSelect);
+  colorPicker.addEventListener("input", handleColorSelect);
 
   let cellEvent =
     toggleModeBtn.getAttribute("data-mode") === "etch" ? "mouseover" : "click";
@@ -46,7 +47,7 @@ function createCell(rows, cols, event) {
 }
 
 function handleCellEvent(e) {
-  e.target.classList.add("cellInteraction");
+  e.target.style.backgroundColor = cellColor;
 }
 
 function handleAdjustGrid() {
@@ -84,8 +85,8 @@ function handleToggleMode() {
   );
 }
 
-function handleColorSelect() {
-  console.log("color select");
+function handleColorSelect(e) {
+  cellColor = e.target.value;
 }
 
 function getValidatedUserInput() {

@@ -33,6 +33,16 @@ body {
   justify-content: center;
 }
 
+.colorContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+label {
+  font-size: large;
+}
+
 button {
   font-size: large;
   margin: 12px;
@@ -46,10 +56,6 @@ button {
 .cell {
   border: 1px solid black;
   background-color: white;
-}
-
-.cellInteraction {
-  background-color: red;
 }
 
 #grid {
