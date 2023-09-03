@@ -8,9 +8,11 @@ init();
 function init() {
   let adjustGridBtn = document.getElementById("adjustGridBtn");
   let toggleModeBtn = document.getElementById("toggleModeBtn");
+  let selectColorBtn = document.getElementById("selectColorBtn");
 
   adjustGridBtn.addEventListener("click", handleAdjustGrid);
   toggleModeBtn.addEventListener("click", handleToggleMode);
+  selectColorBtn.addEventListener("click", handleColorSelect);
 
   let cellEvent =
     toggleModeBtn.getAttribute("data-mode") === "etch" ? "mouseover" : "click";
@@ -80,6 +82,10 @@ function handleToggleMode() {
     +grid.getAttribute("data-cols"),
     cellEvent
   );
+}
+
+function handleColorSelect() {
+  console.log("color select");
 }
 
 function getValidatedUserInput() {
