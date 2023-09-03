@@ -65,24 +65,26 @@ function handleAdjustGrid() {
 
 function handleToggleMode() {
   let toggleModeBtn = document.getElementById("toggleModeBtn");
-  let cellEvent;
+  let newEvent;
+  let oldEvent;
 
   if (toggleModeBtn.getAttribute("data-mode") === "etch") {
     toggleModeBtn.setAttribute("data-mode", "click");
     toggleModeBtn.innerText = "Click Mode";
-    cellEvent = "click";
+    newEvent = "click";
+    oldEvent = "mouseover";
   } else {
     toggleModeBtn.setAttribute("data-mode", "etch");
     toggleModeBtn.innerText = "Etch Mode";
-    cellEvent = "mouseover";
+    newEvent = "mouseover";
+    oldEvent = "click";
   }
 
   let grid = document.getElementById("grid");
-  populateGrid(
-    +grid.getAttribute("data-rows"),
-    +grid.getAttribute("data-cols"),
-    cellEvent
-  );
+  grid.childNodes.forEach((child) => {
+    child.removeEventListener(oldEvent, handleCellEvent);
+    child.addEventListener(newEvent, handleCellEvent);
+  });
 }
 
 function handleColorSelect(e) {
