@@ -3,9 +3,9 @@ const MAX_CELLS_PER_SIDE = 100;
 const MESSAGE_DURATION = 3 * 1000;
 let timerId = null;
 
-main();
+init();
 
-function main() {
+function init() {
   let adjustGridBtn = document.getElementById("adjustGridBtn");
   let toggleModeBtn = document.getElementById("toggleModeBtn");
 
