@@ -13,7 +13,6 @@ function init() {
   let saveBtn = document.getElementById("saveBtn");
   let loadBtn = document.getElementById("loadBtn");
 
-  //<option value="volvo">Volvo</option>
   adjustGridBtn.addEventListener("click", handleAdjustGrid);
   toggleModeBtn.addEventListener("click", handleToggleMode);
   colorPicker.addEventListener("input", handleColorSelect);
@@ -34,12 +33,22 @@ function populateSavedItems() {
 }
 
 function addSavedItem(key) {
+  if (savedItemsContains(key)) return;
+
   let savedItems = document.getElementById("savedItems");
   let option = document.createElement("option");
   option.text = key;
   option.value = key;
 
   savedItems.add(option);
+}
+
+function savedItemsContains(key) {
+  let savedItems = document.getElementById("savedItems");
+
+  return Array.from(savedItems)
+    .map((item) => item.value)
+    .includes(key);
 }
 
 function populateGrid(rows, cols, cellEvent) {
@@ -201,5 +210,7 @@ function handleSave() {
 }
 
 function handleLoad() {
-  console.log("loading");
+  let selection = document.getElementById("savedItems").value;
+  if (!selection) return;
+  if (confirm(`Load ${selection}?`)) loadGrid(selection);
 }
