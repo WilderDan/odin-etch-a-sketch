@@ -10,10 +10,14 @@ function init() {
   let adjustGridBtn = document.getElementById("adjustGridBtn");
   let toggleModeBtn = document.getElementById("toggleModeBtn");
   let colorPicker = document.getElementById("colorPicker");
+  let saveBtn = document.getElementById("saveBtn");
+  let loadBtn = document.getElementById("loadBtn");
 
   adjustGridBtn.addEventListener("click", handleAdjustGrid);
   toggleModeBtn.addEventListener("click", handleToggleMode);
   colorPicker.addEventListener("input", handleColorSelect);
+  saveBtn.addEventListener("click", handleSave);
+  loadBtn.addEventListener("click", handleLoad);
 
   let cellEvent =
     toggleModeBtn.getAttribute("data-mode") === "etch" ? "mouseover" : "click";
@@ -85,10 +89,13 @@ function handleToggleMode() {
     child.removeEventListener(oldEvent, handleCellEvent);
     child.addEventListener(newEvent, handleCellEvent);
   });
+
+  setMessage(`Changed to ${toggleModeBtn.innerText}!`);
 }
 
 function handleColorSelect(e) {
   cellColor = e.target.value;
+  setMessage(`Color changed to ${cellColor}!`);
 }
 
 function getValidatedUserInput() {
@@ -129,4 +136,52 @@ function removeAllChildNodes(parent) {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
   }
+}
+
+function saveGrid(key) {
+  const grid = document.getElementById("grid");
+
+  const rows = grid.getAttribute("data-rows");
+  const cols = grid.getAttribute("data-cols");
+  const colors = Array.from(grid.childNodes).map(
+    (cell) => cell.style.backgroundColor
+  );
+
+  localStorage.setItem(
+    key,
+    JSON.stringify({ rows: rows, cols: cols, colors: colors })
+  );
+
+  setMessage(`Saved "${key}"!`);
+}
+
+function loadGrid(key) {
+  let savedItem = localStorage.getItem(key);
+  if (savedItem === null) return;
+
+  let gridArray = JSON.parse(savedItem);
+  let currentMode =
+    document.getElementById("toggleModeBtn").getAttribute("data-mode") ===
+    "etch"
+      ? "mouseover"
+      : "click";
+
+  populateGrid(gridArray.rows, gridArray.cols, currentMode);
+
+  let grid = document.getElementById("grid");
+  grid.childNodes.forEach(
+    (cell, index) => (cell.style.backgroundColor = gridArray.colors[index])
+  );
+
+  setMessage(`Loaded "${key}"!`);
+}
+
+function handleSave() {
+  let key = prompt("Save as?");
+  if (key === null) return;
+  saveGrid(key);
+}
+
+function handleLoad() {
+  console.log("loading");
 }

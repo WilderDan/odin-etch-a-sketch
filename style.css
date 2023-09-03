@@ -20,7 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   flex: 1;
-  margin: 5vh 5vw;
+  margin: 2vh 2vw;
 }
 
 .controlsContainer {
@@ -31,22 +31,25 @@ body {
 .buttonContainer {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .colorContainer {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
+  margin: 0 12px;
 }
 
 label {
   font-size: large;
+  font-weight: bolder;
 }
 
 button {
-  font-size: large;
+  font-size: medium;
   margin: 12px;
-  padding: 12px;
+  padding: 6px 12px;
   border-radius: 10%;
   background-color: blue;
   color: white;
