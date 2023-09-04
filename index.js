@@ -99,28 +99,24 @@ function handleColorSelect(e) {
   setMessage(`Color changed to ${cellColor}!`);
 }
 
-// TODO: decimal input validation
 function getValidatedUserInput() {
-  const input = +prompt("Number of cells per side?");
+  const input = Math.floor(+prompt("Number of cells per side?"));
 
   if (isNaN(input)) {
-    setMessage("Not a number! No change.");
+    setMessage(
+      `Not a number! Enter integer between 1 and ${MAX_CELLS_PER_SIDE}`
+    );
     return null;
   }
 
-  if (input < 0) {
-    setMessage("Negative input! No change.");
-    return null;
-  }
-
-  if (input === 0) {
-    setMessage("Zero input! No change.");
+  if (input <= 0) {
+    setMessage(`Too low! Enter integer between 1 and ${MAX_CELLS_PER_SIDE}`);
     return null;
   }
 
   if (input > MAX_CELLS_PER_SIDE) {
-    setMessage(`Input too high! Setting to max of ${MAX_CELLS_PER_SIDE}.`);
-    return MAX_CELLS_PER_SIDE;
+    setMessage(`Too High! Enter integer between 1 and ${MAX_CELLS_PER_SIDE}`);
+    return null;
   }
 
   return input;
