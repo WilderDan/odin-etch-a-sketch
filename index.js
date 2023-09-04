@@ -192,7 +192,10 @@ function handleSave() {
 
 function handleLoad() {
   let selection = document.getElementById("savedItems").value;
-  if (!selection) return;
+  if (!selection) {
+    alert("No selection");
+    return;
+  }
   if (confirm(`Load ${selection}?`)) loadGrid(selection);
 }
 
@@ -200,7 +203,10 @@ function handleDelete() {
   let savedItems = document.getElementById("savedItems");
   let selection = savedItems.value;
 
-  if (!selection) return;
+  if (!selection) {
+    alert("No selection");
+    return;
+  }
 
   if (confirm(`Delete ${selection}?`)) {
     localStorage.removeItem(selection);
