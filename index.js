@@ -3,26 +3,25 @@ const MAX_CELLS_PER_SIDE = 100;
 const MESSAGE_DURATION = 3 * 1000;
 let timerId = null;
 let cellColor = document.getElementById("colorPicker").value;
+let isMouseDown = false;
 
 init();
 
 function init() {
   let adjustGridBtn = document.getElementById("adjustGridBtn");
-  let toggleModeBtn = document.getElementById("toggleModeBtn");
   let colorPicker = document.getElementById("colorPicker");
   let saveBtn = document.getElementById("saveBtn");
   let loadBtn = document.getElementById("loadBtn");
 
   adjustGridBtn.addEventListener("click", handleAdjustGrid);
-  toggleModeBtn.addEventListener("click", handleToggleMode);
   colorPicker.addEventListener("input", handleColorSelect);
   saveBtn.addEventListener("click", handleSave);
   loadBtn.addEventListener("click", handleLoad);
 
-  let cellEvent =
-    toggleModeBtn.getAttribute("data-mode") === "etch" ? "mouseover" : "click";
+  window.addEventListener("mousedown", () => (isMouseDown = true));
+  window.addEventListener("mouseup", () => (isMouseDown = false));
 
-  populateGrid(DEFAULT_CELLS_PER_SIDE, DEFAULT_CELLS_PER_SIDE, cellEvent);
+  populateGrid(DEFAULT_CELLS_PER_SIDE, DEFAULT_CELLS_PER_SIDE);
   populateSavedItems();
 }
 
@@ -51,13 +50,13 @@ function savedItemsContains(key) {
     .includes(key);
 }
 
-function populateGrid(rows, cols, cellEvent) {
+function populateGrid(rows, cols) {
   let grid = document.getElementById("grid");
   removeAllChildNodes(grid);
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      grid.appendChild(createCell(rows, cols, cellEvent));
+      grid.appendChild(createCell(rows, cols));
     }
   }
 
@@ -71,12 +70,17 @@ function createCell(rows, cols, event) {
   cell.classList.add("cell");
   cell.style.width = `${100 / rows}%`;
   cell.style.height = `${100 / cols}%`;
-  cell.addEventListener(event, handleCellEvent);
+  cell.addEventListener("mouseenter", handleCellMouseEnter);
+  cell.addEventListener("mousedown", handleCellMouseDown);
 
   return cell;
 }
 
-function handleCellEvent(e) {
+function handleCellMouseEnter(e) {
+  if (isMouseDown) e.target.style.backgroundColor = cellColor;
+}
+
+function handleCellMouseDown(e) {
   e.target.style.backgroundColor = cellColor;
 }
 
@@ -86,37 +90,8 @@ function handleAdjustGrid() {
   let num = getValidatedUserInput();
   if (num === null) return;
 
-  let cellEvent =
-    toggleModeBtn.getAttribute("data-mode") === "etch" ? "mouseover" : "click";
-
-  populateGrid(num, num, cellEvent);
+  populateGrid(num, num);
   setMessage(`Grid changed to ${num} x ${num}`);
-}
-
-function handleToggleMode() {
-  let toggleModeBtn = document.getElementById("toggleModeBtn");
-  let newEvent;
-  let oldEvent;
-
-  if (toggleModeBtn.getAttribute("data-mode") === "etch") {
-    toggleModeBtn.setAttribute("data-mode", "click");
-    toggleModeBtn.innerText = "Click Mode";
-    newEvent = "click";
-    oldEvent = "mouseover";
-  } else {
-    toggleModeBtn.setAttribute("data-mode", "etch");
-    toggleModeBtn.innerText = "Etch Mode";
-    newEvent = "mouseover";
-    oldEvent = "click";
-  }
-
-  let grid = document.getElementById("grid");
-  grid.childNodes.forEach((child) => {
-    child.removeEventListener(oldEvent, handleCellEvent);
-    child.addEventListener(newEvent, handleCellEvent);
-  });
-
-  setMessage(`Changed to ${toggleModeBtn.innerText}!`);
 }
 
 function handleColorSelect(e) {
@@ -124,6 +99,7 @@ function handleColorSelect(e) {
   setMessage(`Color changed to ${cellColor}!`);
 }
 
+// TODO: decimal input validation
 function getValidatedUserInput() {
   const input = +prompt("Number of cells per side?");
 
@@ -186,18 +162,13 @@ function loadGrid(key) {
   let savedItem = localStorage.getItem(key);
   if (savedItem === null) return;
 
-  let gridArray = JSON.parse(savedItem);
-  let currentMode =
-    document.getElementById("toggleModeBtn").getAttribute("data-mode") ===
-    "etch"
-      ? "mouseover"
-      : "click";
+  let grid = JSON.parse(savedItem);
 
-  populateGrid(gridArray.rows, gridArray.cols, currentMode);
+  populateGrid(grid.rows, grid.cols);
 
-  let grid = document.getElementById("grid");
-  grid.childNodes.forEach(
-    (cell, index) => (cell.style.backgroundColor = gridArray.colors[index])
+  let gridElem = document.getElementById("grid");
+  gridElem.childNodes.forEach(
+    (cell, index) => (cell.style.backgroundColor = grid.colors[index])
   );
 
   setMessage(`Loaded "${key}"!`);
