@@ -13,12 +13,14 @@ function init() {
   let saveBtn = document.getElementById("saveBtn");
   let loadBtn = document.getElementById("loadBtn");
   let gridLineToggle = document.getElementById("gridLineToggle");
+  let deleteBtn = document.getElementById("deleteBtn");
 
   adjustGridBtn.addEventListener("click", handleAdjustGrid);
   colorPicker.addEventListener("input", handleColorSelect);
   saveBtn.addEventListener("click", handleSave);
   loadBtn.addEventListener("click", handleLoad);
   gridLineToggle.addEventListener("change", applyBorderStyle);
+  deleteBtn.addEventListener("click", handleDelete);
 
   window.addEventListener("mousedown", () => (isMouseDown = true));
   window.addEventListener("mouseup", () => (isMouseDown = false));
@@ -192,4 +194,16 @@ function handleLoad() {
   let selection = document.getElementById("savedItems").value;
   if (!selection) return;
   if (confirm(`Load ${selection}?`)) loadGrid(selection);
+}
+
+function handleDelete() {
+  let savedItems = document.getElementById("savedItems");
+  let selection = savedItems.value;
+
+  if (!selection) return;
+
+  if (confirm(`Delete ${selection}?`)) {
+    localStorage.removeItem(selection);
+    savedItems.remove(savedItems.selectedIndex);
+  }
 }
