@@ -69,7 +69,7 @@ function createCell(rows, cols, event) {
   let cell = document.createElement("div");
 
   cell.classList.add("cell");
-  cell.style.flexBasis = `${100 / rows}%`;
+  cell.style.width = `${100 / rows}%`;
   cell.style.height = `${100 / cols}%`;
   cell.addEventListener(event, handleCellEvent);
 

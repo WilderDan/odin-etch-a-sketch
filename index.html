@@ -17,24 +17,22 @@
     <div class="bodyContentContainer">
       <div class="mainContainer">
         <div class="controlsContainer">
-          <div class="buttonContainer">
-            <button id="adjustGridBtn">Adjust Grid</button>
-            <button id="toggleModeBtn" data-mode="etch">Etch Mode</button>
-            <button id="saveBtn">Save</button>
-            <button id="loadBtn">Load</button>
-
-            <select id="savedItems">
-              <option selected="selected"></option>
-            </select>
-
-            <div class="colorContainer">
-              <label for="colorPicker">Color: </label>
-              <input id="colorPicker" type="color" />
-            </div>
+          <button id="adjustGridBtn">Adjust Grid</button>
+          <button id="toggleModeBtn" data-mode="etch">Etch Mode</button>
+          <div class="colorContainer">
+            <label for="colorPicker">Color: </label>
+            <input id="colorPicker" type="color" value="#6cf312" />
           </div>
+          <select id="savedItems">
+            <option selected="selected"></option>
+          </select>
+          <button id="saveBtn">Save</button>
+          <button id="loadBtn">Load</button>
         </div>
-        <p id="message">&nbsp;</p>
-        <div id="grid"></div>
+        <div class="gridContainer">
+          <p id="message">&nbsp;</p>
+          <div id="grid"></div>
+        </div>
       </div>
     </div>
   </body>

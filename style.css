@@ -14,22 +14,27 @@ body {
   flex-direction: column;
   height: 100%;
   background-color: pink;
+  align-items: center;
 }
 
 .mainContainer {
   display: flex;
-  flex-direction: column;
   flex: 1;
   margin: 2vh 2vw;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+}
+
+.gridContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .controlsContainer {
   display: flex;
-  justify-content: center;
-}
-
-.buttonContainer {
-  display: flex;
+  flex-direction: column;
   justify-content: center;
   flex-wrap: wrap;
   gap: 32px;
@@ -37,7 +42,7 @@ body {
 
 .colorContainer {
   display: flex;
-  align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 
@@ -63,7 +68,8 @@ button {
 #grid {
   display: flex;
   flex-wrap: wrap;
-  flex: 1;
+  width: 450px;
+  height: 450px;
 }
 
 #message {
@@ -74,4 +80,6 @@ button {
 select,
 option {
   font-size: medium;
+  padding: 6px 24px;
+  text-align: center;
 }
