@@ -43,7 +43,14 @@ body {
 .colorContainer {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
+  gap: 20px;
+}
+
+.checkBoxContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 label {
@@ -83,7 +90,6 @@ button:hover {
 }
 
 .cell {
-  border: 1px solid black;
   background-color: white;
 }
 
@@ -104,4 +110,8 @@ option {
   font-size: medium;
   padding: 6px 24px;
   text-align: center;
+}
+
+p {
+  margin: 0;
 }

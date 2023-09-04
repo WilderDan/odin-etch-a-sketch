@@ -12,17 +12,28 @@ function init() {
   let colorPicker = document.getElementById("colorPicker");
   let saveBtn = document.getElementById("saveBtn");
   let loadBtn = document.getElementById("loadBtn");
+  let gridLineToggle = document.getElementById("gridLineToggle");
 
   adjustGridBtn.addEventListener("click", handleAdjustGrid);
   colorPicker.addEventListener("input", handleColorSelect);
   saveBtn.addEventListener("click", handleSave);
   loadBtn.addEventListener("click", handleLoad);
+  gridLineToggle.addEventListener("change", applyBorderStyle);
 
   window.addEventListener("mousedown", () => (isMouseDown = true));
   window.addEventListener("mouseup", () => (isMouseDown = false));
 
   populateGrid(DEFAULT_CELLS_PER_SIDE, DEFAULT_CELLS_PER_SIDE);
   populateSavedItems();
+}
+
+function applyBorderStyle() {
+  let borderStyle = document.getElementById("gridLineToggle").checked
+    ? "1px solid black"
+    : 0;
+  let grid = document.getElementById("grid");
+
+  grid.childNodes.forEach((cell) => (cell.style.border = borderStyle));
 }
 
 function populateSavedItems() {
@@ -59,6 +70,7 @@ function populateGrid(rows, cols) {
       grid.appendChild(createCell(rows, cols));
     }
   }
+  applyBorderStyle();
 
   grid.setAttribute("data-rows", rows);
   grid.setAttribute("data-cols", cols);
