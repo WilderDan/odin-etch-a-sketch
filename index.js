@@ -116,26 +116,29 @@ function handleColorSelect(e) {
 }
 
 function getValidatedUserInput() {
-  const input = Math.floor(+prompt("Number of cells per side?"));
+  let input = prompt("Number of cells per side?");
+  if (!input) return null;
 
-  if (isNaN(input)) {
+  const convertedInput = Math.floor(+input);
+
+  if (isNaN(convertedInput)) {
     setMessage(
       `Not a number! Enter integer between 1 and ${MAX_CELLS_PER_SIDE}`
     );
     return null;
   }
 
-  if (input <= 0) {
+  if (convertedInput <= 0) {
     setMessage(`Too low! Enter integer between 1 and ${MAX_CELLS_PER_SIDE}`);
     return null;
   }
 
-  if (input > MAX_CELLS_PER_SIDE) {
+  if (convertedInput > MAX_CELLS_PER_SIDE) {
     setMessage(`Too High! Enter integer between 1 and ${MAX_CELLS_PER_SIDE}`);
     return null;
   }
 
-  return input;
+  return convertedInput;
 }
 
 function setMessage(text) {
