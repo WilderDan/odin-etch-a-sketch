@@ -14,6 +14,7 @@ function init() {
   let loadBtn = document.getElementById("loadBtn");
   let gridLineToggle = document.getElementById("gridLineToggle");
   let deleteBtn = document.getElementById("deleteBtn");
+  let clearBtn = document.getElementById("clearBtn");
 
   adjustGridBtn.addEventListener("click", handleAdjustGrid);
   colorPicker.addEventListener("input", handleColorSelect);
@@ -21,6 +22,7 @@ function init() {
   loadBtn.addEventListener("click", handleLoad);
   gridLineToggle.addEventListener("change", applyBorderStyle);
   deleteBtn.addEventListener("click", handleDelete);
+  clearBtn.addEventListener("click", handleClear);
 
   window.addEventListener("mousedown", () => (isMouseDown = true));
   window.addEventListener("mouseup", () => (isMouseDown = false));
@@ -212,4 +214,10 @@ function handleDelete() {
     localStorage.removeItem(selection);
     savedItems.remove(savedItems.selectedIndex);
   }
+}
+
+function handleClear() {
+  let grid = document.getElementById("grid");
+
+  grid.childNodes.forEach((cell) => (cell.style.backgroundColor = "white"));
 }

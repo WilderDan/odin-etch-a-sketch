@@ -37,7 +37,7 @@ body {
   flex-direction: column;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 32px;
+  gap: 16px;
 }
 
 .colorContainer {
@@ -103,6 +103,7 @@ button:hover {
 #message {
   text-align: center;
   font-size: medium;
+  margin-bottom: 6px;
 }
 
 select,
